@@ -7,6 +7,7 @@ import TrainingDetail from './pages/TrainingDetail';
 import CompanyProfile from './pages/CompanyProfile';
 import Terms from './pages/Terms';
 import Contact from './pages/Contact';
+import Gallery from './pages/Gallery';
 
 // This sub-component handles the automatic scrolling
 function ScrollToTop() {
