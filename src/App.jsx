@@ -31,7 +31,9 @@ function App() {
         <Route path="/training" element={<TrainingDetail />} />
         <Route path="/profile" element={<CompanyProfile />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
+        
       </Routes>
     </Router>
   );
