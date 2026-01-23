@@ -45,7 +45,7 @@ export default function Header() {
       {isOpen && (
         <div className="lg:hidden bg-white border-t p-6 flex flex-col gap-4 font-semibold text-slate-700">
           <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
-          <Link to="/company-profile" onClick={() => setIsOpen(false)}>About Us</Link>
+          <Link to="/profile" onClick={() => setIsOpen(false)}>About Us</Link>
           <Link to="/titp" onClick={() => setIsOpen(false)}>TITP</Link>
           <Link to="/gallery" onClick={() => setIsOpen(false)}>Gallery</Link>
           <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
