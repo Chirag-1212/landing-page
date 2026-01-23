@@ -10,7 +10,7 @@ export default function Header() {
         
         {/* 1. LOGO */}
         <Link to="/" className="text-xl md:text-2xl font-black text-orange-600 shrink-0">
-          KAKEHASHI
+          Kyoshin
         </Link>
 
         {/* 2. SEARCH BAR (Responsive: shrinks on tablet, hidden on small mobile) */}
