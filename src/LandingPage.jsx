@@ -6,7 +6,7 @@ import LandingBody from './components/LandingBody';
 export default function LandingPage() {
   // 2. Added this hook for the main homepage title
   useEffect(() => {
-    document.title = "Kakehashi Myanmar | Overseas Employment Agency";
+    document.title = "Kyoshin | Overseas Employment Agency";
   }, []);
 
   return (

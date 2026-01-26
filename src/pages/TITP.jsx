@@ -7,7 +7,7 @@ import Footer from "../layout/Footer";
 export default function TITP() {
 
   useEffect(() => {
-    document.title = "Home | Kakehashi Myanmar";
+    document.title = "Home | Kyoshin";
   }, []);
 
   const steps = [

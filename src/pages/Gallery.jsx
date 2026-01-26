@@ -5,7 +5,7 @@ import Footer from "../layout/Footer";
 export default function Gallery() {
   // 2. Added this hook for the professional page title
   useEffect(() => {
-    document.title = "Gallery | Kakehashi Myanmar";
+    document.title = "Gallery | Kyoshin";
   }, []);
   
   const images = [
