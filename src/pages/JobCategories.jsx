@@ -1,9 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 
 export default function JobCategories() {
+
+  useEffect(() => {
+    document.title = "Home | Kakehashi Myanmar";
+  }, []);
+
   // Logic (like arrays) goes here, BEFORE the return
   const jobs = ["Construction", "Agriculture", "Careworker", "Manufacturing", "Food Processing"];
 

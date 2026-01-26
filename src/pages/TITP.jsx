@@ -1,9 +1,15 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 
 export default function TITP() {
+
+  useEffect(() => {
+    document.title = "Home | Kakehashi Myanmar";
+  }, []);
+
   const steps = [
     { title: "Step 1: Prep", desc: "Language & Culture training in Myanmar." },
     { title: "Step 2: Learn", desc: "3 Years on-the-job training in Japan." },

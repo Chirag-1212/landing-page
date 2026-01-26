@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 
 export default function Terms() {
+
+  useEffect(() => {
+    document.title = "Home | Kakehashi Myanmar";
+  }, []);
+  
   return (
     <div className="flex flex-col min-h-screen">
       {/* 1. Header */}
