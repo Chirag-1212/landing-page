@@ -6,7 +6,7 @@ import Footer from "../layout/Footer";
 export default function Terms() {
 
   useEffect(() => {
-    document.title = "Home | Kyoshin";
+    document.title = "Terms | Kyoshin";
   }, []);
   
   return (

@@ -7,7 +7,7 @@ import Footer from "../layout/Footer";
 export default function TrainingDetail() {
 
   useEffect(() => {
-    document.title = "Home | Kyoshin";
+    document.title = "Trainings | Kyoshin";
   }, []);
 
   return (

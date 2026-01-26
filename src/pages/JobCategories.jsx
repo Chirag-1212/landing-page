@@ -7,7 +7,7 @@ import Footer from "../layout/Footer";
 export default function JobCategories() {
 
   useEffect(() => {
-    document.title = "Home | Kyoshin";
+    document.title = "JobCategories | Kyoshin";
   }, []);
 
   // Logic (like arrays) goes here, BEFORE the return

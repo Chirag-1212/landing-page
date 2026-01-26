@@ -8,6 +8,7 @@ import CompanyProfile from './pages/CompanyProfile';
 import Terms from './pages/Terms';
 import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
+import SignUp from './pages/SignUp';
 
 // This sub-component handles the automatic scrolling
 function ScrollToTop() {
@@ -27,6 +28,7 @@ function App() {
       
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/categories" element={<JobCategories />} />
         <Route path="/titp" element={<TITP />} />
         <Route path="/training" element={<TrainingDetail />} />

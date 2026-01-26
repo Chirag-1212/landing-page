@@ -5,7 +5,7 @@ import Footer from "../layout/Footer";
 export default function CompanyProfile() {
 
   useEffect(() => {
-    document.title = "Home | Kyoshin";
+    document.title = "CompanyProfile | Kyoshin";
   }, []);
   
   return (
