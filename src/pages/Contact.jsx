@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 
 export default function Contact() {
 
   useEffect(() => {
-    document.title = "Home | Kakehashi Myanmar";
+    // FIXED: Changed "Home" to "Contact Us"
+    document.title = "Contact Us | Kakehashi Myanmar";
   }, []);
   
   return (
     <div className="flex flex-col min-h-screen">
-      {/* 1. Add the Header */}
       <Header />
 
-      {/* 2. Main content area with padding for the fixed header */}
       <main className="flex-grow pt-20"> 
         <section className="bg-white py-24 px-10 text-slate-900 relative">
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-stretch">
@@ -76,7 +75,7 @@ export default function Contact() {
             {/* RIGHT COLUMN: The Map */}
             <div className="h-[500px] lg:h-full min-h-[450px] rounded-3xl overflow-hidden shadow-2xl border border-gray-100 relative group">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3818.541315629161!2d96.1837!3d16.8521!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTbCsDUxJzA3LjYiTiA5NiwxMScwMS4zIkU!5e0!3m2!1sen!2smm!4v1700000000000!5m2!1sen!2smm"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3818.605978160538!2d96.1776!3d16.8459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTbCsDUwJzQ1LjIiTiA5NsKwMTAnMzkuNCJF!5e0!3m2!1sen!2smm!4v1700000000000"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -97,7 +96,6 @@ export default function Contact() {
         </section>
       </main>
 
-      {/* 3. Add the Footer */}
       <Footer />
     </div>
   );
