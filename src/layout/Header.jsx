@@ -9,7 +9,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between gap-4">
         
         {/* 1. LOGO */}
-        <Link to="/" className="text-xl md:text-2xl font-black text-orange-600 shrink-0">
+        <Link to="/" onClick={() =>window.scrollTo(0, 0)} className="text-xl md:text-2xl font-black text-orange-600 shrink-0">
           Kyoshin
         </Link>
 
@@ -25,11 +25,11 @@ export default function Header() {
 
         {/* 3. DESKTOP LINKS (Now including About and Gallery) */}
         <div className="hidden lg:flex items-center gap-5 font-medium text-slate-700 shrink-0">
-          <Link to="/" className="hover:text-orange-500 transition">Home</Link>
-          <Link to="/profile" className="hover:text-orange-500 transition whitespace-nowrap">About Us</Link>
-          <Link to="/titp" className="hover:text-orange-500 transition">TITP</Link>
-          <Link to="/gallery" className="hover:text-orange-500 transition">Gallery</Link>
-          <Link to="/contact" className="hover:text-orange-500 transition">Contact</Link>
+          <Link to="/" onClick={() =>window.scrollTo(0, 0)} className="hover:text-orange-500 transition">Home</Link>
+          <Link to="/profile" onClick={() =>window.scrollTo(0, 0)} className="hover:text-orange-500 transition whitespace-nowrap">About Us</Link>
+          <Link to="/titp" onClick={() =>window.scrollTo(0, 0)} className="hover:text-orange-500 transition">TITP</Link>
+          <Link to="/gallery" onClick={() =>window.scrollTo(0, 0)} className="hover:text-orange-500 transition">Gallery</Link>
+          <Link to="/contact" onClick={() =>window.scrollTo(0, 0)} className="hover:text-orange-500 transition">Contact</Link>
         </div>
 
         {/* 4. MOBILE MENU BUTTON */}
