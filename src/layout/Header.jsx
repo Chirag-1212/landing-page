@@ -43,12 +43,12 @@ export default function Header() {
 
       {/* MOBILE DROPDOWN */}
       {isOpen && (
-        <div className="lg:hidden bg-white border-t p-6 flex flex-col gap-4 font-semibold text-slate-700">
-          <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
-          <Link to="/profile" onClick={() => setIsOpen(false)}>About Us</Link>
-          <Link to="/titp" onClick={() => setIsOpen(false)}>TITP</Link>
-          <Link to="/gallery" onClick={() => setIsOpen(false)}>Gallery</Link>
-          <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
+        <div className="lg:hidden bg-white border-t p-6 flex flex-col gap-6 font-bold text-slate-700 animate-in slide-in-from-top duration-300">
+          <Link to="/" onClick={handleNavigate} className="hover:text-orange-600 transition-colors">Home</Link>
+          <Link to="/profile" onClick={handleNavigate} className="hover:text-orange-600 transition-colors">About Us</Link>
+          <Link to="/titp" onClick={handleNavigate} className="hover:text-orange-600 transition-colors">TITP</Link>
+          <Link to="/gallery" onClick={handleNavigate} className="hover:text-orange-600 transition-colors">Gallery</Link>
+          <Link to="/contact" onClick={handleNavigate} className="bg-orange-600 text-white p-4 rounded-xl text-center">Contact Us</Link>
         </div>
       )}
     </nav>
