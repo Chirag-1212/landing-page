@@ -35,7 +35,7 @@ export default function Header() {
           <Link to="/profile" onClick={handleNavigate} className="hover:text-orange-500 transition whitespace-nowrap">About Us</Link>
           <Link to="/titp" onClick={handleNavigate} className="hover:text-orange-500 transition">TITP</Link>
           <Link to="/gallery" onClick={handleNavigate} className="hover:text-orange-500 transition">Gallery</Link>
-          <Link to="/contact" onClick={handleNavigate} className="hover:text-orange-500 transition border-2 border-orange-500 px-4 py-2 rounded-full text-orange-600 hover:bg-orange-500 hover:text-white">Contact</Link>
+          <Link to="/contact" onClick={handleNavigate} className="hover:text-orange-500 transition">Contact</Link>
         </div>
 
         {/* 4. MOBILE MENU BUTTON */}
@@ -55,7 +55,7 @@ export default function Header() {
           <Link to="/profile" onClick={handleNavigate} className="hover:text-orange-600 transition-colors">About Us</Link>
           <Link to="/titp" onClick={handleNavigate} className="hover:text-orange-600 transition-colors">TITP</Link>
           <Link to="/gallery" onClick={handleNavigate} className="hover:text-orange-600 transition-colors">Gallery</Link>
-          <Link to="/contact" onClick={handleNavigate} className="bg-orange-600 text-white p-4 rounded-xl text-center">Contact Us</Link>
+          <Link to="/contact" onClick={handleNavigate} className="hover:text-orange-600 transition-colors">Contact Us</Link>
         </div>
       )}
     </nav>

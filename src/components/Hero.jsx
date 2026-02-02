@@ -72,7 +72,7 @@ export default function Hero() {
                 to="/signup" 
                 className="bg-white text-pink-600 px-10 py-4 text-sm font-black uppercase tracking-widest hover:bg-orange-100 transition-all shadow-xl inline-block"
               >
-                Apply Now
+                SignUp Now
               </Link>
 
               {/* OUR MISSION -> Triggers the Pop-up */}
