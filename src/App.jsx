@@ -11,11 +11,20 @@ import Terms from './pages/Terms';
 import Contact from './pages/Contact';  
 import Gallery from './pages/Gallery';
 import SignUp from './pages/SignUp';
+import Login from './pages/auth/Login'; 
 
-// --- NEW IMPORTS (Make sure you create these files first!) ---
-import Login from './pages/auth/Login';                  // 1. The Login Page
-import AdminLayout from './layout/AdminLayout';         // 2. The Admin Shell (Sidebar)
-import DashboardHome from './pages/admin/DashboardHome'; // 3. The Admin Content
+// --- ADMIN IMPORTS ---
+import AdminLayout from './layout/AdminLayout';        
+import DashboardHome from './pages/admin/DashboardHome'; 
+import CreateJob from './pages/admin/CreateJob';
+
+// --- NEW CANDIDATE IMPORTS ---
+import CandidateLayout from './layout/CandidateLayout';     // The Shell
+import CandidateDashboard from './candidate/CandidateDashboard'; 
+import CandidateJobs from './candidate/CandidateJobs'; 
+
+// --- SECURITY ---
+import ProtectedRoute from './components/ProtectedRoute';
 
 // Scroll Helper
 function ScrollToTop() {
@@ -32,9 +41,12 @@ function App() {
       <ScrollToTop />
       
       <Routes>
-        {/* --- PUBLIC ROUTES (No Changes) --- */}
+        {/* ==========================================
+            1. PUBLIC ROUTES (Anyone can see these)
+           ========================================== */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} /> 
         <Route path="/categories" element={<JobCategories />} />
         <Route path="/titp" element={<TITP />} />
         <Route path="/training" element={<TrainingDetail />} />
@@ -43,19 +55,27 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
 
-        {/* --- NEW: LOGIN ROUTE --- */}
-        <Route path="/login" element={<Login />} />
+        {/* ==========================================
+            2. ADMIN ROUTES (Only for Role ID 1)
+           ========================================== */}
+        <Route element={<ProtectedRoute allowedRoles={[1]} />}>
+            <Route path="/admin" element={<AdminLayout />}>
+                <Route path="dashboard" element={<DashboardHome />} />
+                <Route path="jobs/create" element={<CreateJob />} />
+            </Route>
+        </Route>
 
-        {/* --- NEW: ADMIN PROTECTED ROUTES (Nested) --- */}
-        {/* This wrapper ensures the Sidebar (AdminLayout) is always visible */}
-        <Route path="/admin" element={<AdminLayout />}>
-            
-            {/* URL: /admin/dashboard -> Loads DashboardHome inside the Layout */}
-            <Route path="dashboard" element={<DashboardHome />} />
-
-            {/* Future routes go here, e.g.: */}
-            {/* <Route path="users" element={<ManageUsers />} /> */}
-            
+        {/* ==========================================
+            3. CANDIDATE ROUTES (Only for Role ID 2)
+           ========================================== */}
+        <Route element={<ProtectedRoute allowedRoles={[2]} />}>
+            <Route path="/candidate" element={<CandidateLayout />}>
+                {/* Path: /candidate/dashboard */}
+                <Route path="dashboard" element={<CandidateDashboard />} />
+                {/* Path: /candidate/jobs */}
+                <Route path="jobs" element={<CandidateJobs />} />
+                {/* Add more candidate-specific pages here later */}
+            </Route>
         </Route>
 
       </Routes>

@@ -8,11 +8,14 @@ const AdminLayout = () => {
         <div className="flex h-screen bg-gray-100">
             {/* --- PERMANENT SIDEBAR --- */}
             <div className="w-64 bg-gray-900 text-white p-5 flex flex-col">
+                <button onClick={() => navigate('/admin/jobs/create')} className="w-full text-left p-3 hover:bg-gray-800 rounded">
+                    ➕ Post New Job
+                </button>
                 <div className="text-2xl font-bold mb-10 text-center border-b border-gray-700 pb-4">
                     Kyoshin Admin
                 </div>
                 
-                <nav className="flex-1 space-y-2">
+                <nav  className="flex-1 space-y-2">
                     <button onClick={() => navigate('/admin/dashboard')} className="w-full text-left p-3 hover:bg-gray-800 rounded">
                         📊 Dashboard Overview
                     </button>

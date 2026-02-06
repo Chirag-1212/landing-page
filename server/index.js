@@ -225,6 +225,71 @@ app.listen(PORT, () => {
     console.log(`🔗 Access at: http://localhost:${PORT}`);
 });
 
+
+// ====================================
+// ROUTE 6: POST A NEW JOB
+// ====================================
+app.post('/api/admin/jobs', (req, res) => {
+    const { 
+        job_title, 
+        deadline, 
+        job_type, // 'Full Time', 'Part Time'
+        vacancy_count, 
+        description, 
+        status,    // '1' = Active, '0' = Draft
+        user_id    // The Admin ID creating this
+    } = req.body;
+
+    // 1. Create a "Slug" (e.g., "Factory Worker" -> "factory-worker-1234")
+    // This is needed for the URL: kyoshin.com/job/factory-worker-1234
+    const slug = job_title.toLowerCase().replace(/ /g, '-') + '-' + Date.now();
+
+    const sql = `
+        INSERT INTO careers 
+        (job_title, slug, due_date, type, vacancy_count, description, status, created_by, created_on, serial)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), 1)
+    `;
+
+    const values = [
+        job_title, 
+        slug, 
+        deadline, 
+        job_type, 
+        vacancy_count, 
+        description, 
+        status, 
+        user_id
+    ];
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.error("❌ Job Post Error:", err);
+            return res.status(500).json({ error: "Failed to post job" });
+        }
+        res.json({ message: "Job Posted Successfully!", jobId: result.insertId });
+    });
+});
+
+// ====================================
+// ROUTE 7: GET ALL ACTIVE JOBS (Public)
+// ====================================
+app.get('/api/jobs', (req, res) => {
+    // We only fetch jobs where status = '1' (Active/Published)
+    const sql = `
+        SELECT id, job_title, slug, job_type, due_date, vacancy_count, description 
+        FROM careers 
+        WHERE status = '1' 
+        ORDER BY created_on DESC
+    `;
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error("❌ Fetch Jobs Error:", err);
+            return res.status(500).json({ error: "Failed to fetch jobs" });
+        }
+        res.json(results);
+    });
+});
 // ====================================
 // OPTIONAL: GRACEFUL SHUTDOWN
 // ====================================

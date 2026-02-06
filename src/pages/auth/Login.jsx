@@ -9,10 +9,9 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setError(''); // Clear previous errors
+        setError(''); 
 
         try {
-            // 1. Send Credentials to Backend
             const response = await fetch('http://localhost:5000/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -22,14 +21,18 @@ const Login = () => {
             const data = await response.json();
 
             if (response.ok) {
-                // 2. Save User Info (Session)
+                // 1. Save User Info (Session)
                 localStorage.setItem('user', JSON.stringify(data.user));
 
-                // 3. REDIRECT BASED ON ROLE
+                // 2. REDIRECT BASED ON ROLE
+                // Role 1 = Admin, Role 2 = Candidate
                 if (data.user.role === 1) {
-                    navigate('/admin/dashboard'); // Role 1 = Admin
+                    navigate('/admin/dashboard'); 
+                } else if (data.user.role === 2) {
+                    // FIX: Redirect to the new Candidate Dashboard instead of home
+                    navigate('/candidate/dashboard'); 
                 } else {
-                    navigate('/'); // Role 2 = Candidate (or anywhere else)
+                    navigate('/'); // Fallback for any other roles
                 }
             } else {
                 setError(data.error || 'Login failed');
@@ -41,35 +44,38 @@ const Login = () => {
     };
 
     return (
-        <div className="flex h-screen items-center justify-center bg-gray-100">
-            <div className="w-full max-w-md bg-white p-8 rounded shadow-md">
-                <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Kyoshin Login</h2>
+        <div className="flex h-screen items-center justify-center bg-gray-100 px-4">
+            <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                <div className="text-center mb-8">
+                    <h2 className="text-3xl font-extrabold text-slate-900">Kyoshin ERP</h2>
+                    <p className="text-gray-500 mt-2">Sign in to your account</p>
+                </div>
                 
                 {error && (
-                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm">
+                    <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded mb-6 text-sm">
                         {error}
                     </div>
                 )}
 
-                <form onSubmit={handleLogin}>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                <form onSubmit={handleLogin} className="space-y-5">
+                    <div>
+                        <label className="block text-gray-700 text-sm font-semibold mb-2">Email Address</label>
                         <input 
                             type="email" 
-                            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                            placeholder="admin@kyoshin.com"
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                            placeholder="name@example.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required 
                         />
                     </div>
                     
-                    <div className="mb-6">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-semibold mb-2">Password</label>
                         <input 
                             type="password" 
-                            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                            placeholder="********"
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                            placeholder="••••••••"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required 
@@ -78,15 +84,23 @@ const Login = () => {
 
                     <button 
                         type="submit" 
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-lg shadow-md transition-all active:scale-95"
                     >
                         Sign In
                     </button>
                 </form>
 
-                <p className="mt-4 text-center text-sm text-gray-600">
-                    Don't have an account? <span onClick={() => navigate('/signup')} className="text-blue-600 cursor-pointer hover:underline">Sign Up</span>
-                </p>
+                <div className="mt-8 pt-6 border-t border-gray-100 text-center">
+                    <p className="text-sm text-gray-600">
+                        Don't have an account? 
+                        <span 
+                            onClick={() => navigate('/signup')} 
+                            className="text-blue-600 font-bold ml-1 cursor-pointer hover:underline"
+                        >
+                            Create account
+                        </span>
+                    </p>
+                </div>
             </div>
         </div>
     );
