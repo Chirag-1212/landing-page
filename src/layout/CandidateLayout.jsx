@@ -6,7 +6,7 @@ const CandidateLayout = () => {
     const location = useLocation();
     const user = JSON.parse(localStorage.getItem('user'));
 
-    // Helper to highlight active menu item
+    // 1. Updated Helper: Use /candidate/careers
     const isActive = (path) => location.pathname === path 
         ? "bg-blue-600 text-white" 
         : "text-gray-300 hover:bg-gray-800 hover:text-white";
@@ -28,18 +28,19 @@ const CandidateLayout = () => {
                         📊 Dashboard
                     </button>
                     
+                    {/* 2. CHANGE HERE: Changed /jobs to /careers and updated text */}
                     <button 
-                        onClick={() => navigate('/candidate/jobs')} 
-                        className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${isActive('/candidate/jobs')}`}
+                        onClick={() => navigate('/candidate/careers')} 
+                        className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${isActive('/candidate/careers')}`}
                     >
-                        💼 Browse Jobs
+                        🚀 Careers
                     </button>
 
                     <button 
                         onClick={() => navigate('/candidate/applications')} 
                         className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${isActive('/candidate/applications')}`}
                     >
-                        tbl-list My Applications
+                        📝 My Applications
                     </button>
 
                     <button 
@@ -65,8 +66,10 @@ const CandidateLayout = () => {
                 {/* Header */}
                 <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
                     <h2 className="text-xl font-semibold text-gray-700">
-                        {/* Dynamic Title based on Path */}
-                        {location.pathname.includes('jobs') ? 'Find Your Dream Job' : 'Overview'}
+                        {/* 3. CHANGE HERE: Updated logic to check for 'careers' */}
+                        {location.pathname.includes('careers') ? 'Available Careers' : 
+                         location.pathname.includes('applications') ? 'My Applications' :
+                         location.pathname.includes('profile') ? 'Profile Settings' : 'Dashboard Overview'}
                     </h2>
                     <div className="flex items-center gap-3">
                         <div className="text-right">
@@ -79,7 +82,6 @@ const CandidateLayout = () => {
                     </div>
                 </header>
 
-                {/* Dynamic Page Content Loads Here */}
                 <div className="flex-1 overflow-y-auto p-6">
                     <Outlet />
                 </div>

@@ -21,7 +21,8 @@ import CreateJob from './pages/admin/CreateJob';
 // --- NEW CANDIDATE IMPORTS ---
 import CandidateLayout from './layout/CandidateLayout';     // The Shell
 import CandidateDashboard from './candidate/CandidateDashboard'; 
-import CandidateJobs from './candidate/CandidateJobs'; 
+import Careers from './candidate/Careers';
+import MyApplications from './candidate/MyApplications';
 
 // --- SECURITY ---
 import ProtectedRoute from './components/ProtectedRoute';
@@ -68,14 +69,13 @@ function App() {
         {/* ==========================================
             3. CANDIDATE ROUTES (Only for Role ID 2)
            ========================================== */}
+
         <Route element={<ProtectedRoute allowedRoles={[2]} />}>
-            <Route path="/candidate" element={<CandidateLayout />}>
-                {/* Path: /candidate/dashboard */}
-                <Route path="dashboard" element={<CandidateDashboard />} />
-                {/* Path: /candidate/jobs */}
-                <Route path="jobs" element={<CandidateJobs />} />
-                {/* Add more candidate-specific pages here later */}
-            </Route>
+          <Route path="/candidate" element={<CandidateLayout />}>
+              <Route path="dashboard" element={<CandidateDashboard />} />
+              <Route path="careers" element={<Careers />} /> 
+              <Route path="applications" element={<MyApplications />} />
+          </Route>
         </Route>
 
       </Routes>
