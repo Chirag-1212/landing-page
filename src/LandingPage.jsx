@@ -1,10 +1,11 @@
-import { useEffect } from 'react'; // 1. Added this import
+import { useEffect } from 'react';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 import LandingBody from './components/LandingBody';
 
+
 export default function LandingPage() {
-  // 2. Added this hook for the main homepage title
+  // Added this hook for the main homepage title
   useEffect(() => {
     document.title = "Kyoshin | Overseas Employment Agency";
   }, []);
