@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/logo.jpeg';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Helper to handle both scrolling and closing the menu
   const handleNavigate = () => {
     window.scrollTo(0, 0);
     setIsOpen(false);
@@ -15,8 +15,16 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between gap-4">
         
         {/* 1. LOGO */}
-        <Link to="/" onClick={handleNavigate} className="text-xl md:text-2xl font-black text-orange-600 shrink-0">
-          Kyoshin
+        <Link 
+          to="/" 
+          onClick={handleNavigate} 
+          className="flex items-center shrink-0 hover:opacity-80 transition-opacity"
+        >
+          <img 
+            src={logo} 
+            alt="Kyoshin Logo" 
+            className="h-12 w-auto object-contain" 
+          />
         </Link>
 
         {/* 2. SEARCH BAR */}
@@ -55,6 +63,8 @@ export default function Header() {
           <Link to="/profile" onClick={handleNavigate} className="hover:text-orange-600 transition-colors">About Us</Link>
           <Link to="/titp" onClick={handleNavigate} className="hover:text-orange-600 transition-colors">TITP</Link>
           <Link to="/gallery" onClick={handleNavigate} className="hover:text-orange-600 transition-colors">Gallery</Link>
+          {/* ADDED CAREERS LINK FOR MOBILE */}
+          <Link to="/careers" onClick={handleNavigate} className="text-blue-600 transition-colors">Careers</Link>
           <Link to="/contact" onClick={handleNavigate} className="hover:text-orange-600 transition-colors">Contact Us</Link>
         </div>
       )}

@@ -1,6 +1,14 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+// 1. Import the logo just like you did in the Header
+import logo from '../assets/logo.jpeg'; 
 
 export default function Footer() {
+  // Helper for scrolling to top
+  const handleNavigate = () => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <footer className="bg-slate-950 text-white relative overflow-hidden pt-24 pb-12 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-10 relative z-10">
@@ -8,10 +16,20 @@ export default function Footer() {
         {/* Top Section: Brand & Navigation */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
           <div className="col-span-1 lg:col-span-2">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 bg-gradient-to-tr from-orange-400 to-rose-500 rounded-lg"></div>
-              <h2 className="text-3xl font-black lowercase tracking-tighter">Kyoshin</h2>
-            </div>
+            
+            {/* 2. LOGO REPLACED HERE */}
+            <Link 
+              to="/" 
+              onClick={handleNavigate} 
+              className="inline-flex items-center gap-2 mb-6 hover:opacity-80 transition-opacity"
+            >
+              <img 
+                src={logo} 
+                alt="Kyoshin Logo" 
+                className="h-10 w-auto object-contain" // Adjusted height for footer look
+              />
+            </Link>
+
             <p className="max-w-sm text-gray-400 leading-relaxed text-sm italic mb-6">
               "Bridging Myanmar's potential with Japan's industrial excellence."
             </p>
@@ -40,10 +58,10 @@ export default function Footer() {
           <div>
             <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-orange-400 mb-8">Navigation</h4>
             <ul className="space-y-4 text-sm text-gray-400 font-medium">
-              <li><Link to="/titp" onClick={() => window.scrollTo(0, 0)} className="hover:text-white transition-colors">TITP Program</Link></li>
-              <li><Link to="/categories" onClick={() => window.scrollTo(0, 0)} className="hover:text-white transition-colors">Job Categories</Link></li>
-              <li><Link to="/training" onClick={() => window.scrollTo(0, 0)} className="hover:text-white transition-colors">Training Centers</Link></li>
-              <li><Link to="/contact" onClick={() => window.scrollTo(0, 0)} className="hover:text-white transition-colors">Contact Us</Link></li>
+              <li><Link to="/titp" onClick={handleNavigate} className="hover:text-white transition-colors">TITP Program</Link></li>
+              <li><Link to="/categories" onClick={handleNavigate} className="hover:text-white transition-colors">Job Categories</Link></li>
+              <li><Link to="/training" onClick={handleNavigate} className="hover:text-white transition-colors">Training Centers</Link></li>
+              <li><Link to="/contact" onClick={handleNavigate} className="hover:text-white transition-colors">Contact Us</Link></li>
             </ul>
           </div>
 
@@ -65,8 +83,8 @@ export default function Footer() {
           </div>
           
           <div className="flex gap-10 text-[10px] uppercase tracking-widest font-black text-gray-400">
-            <Link to="/profile" onClick={() => window.scrollTo(0, 0)} className="hover:text-orange-400 transition-colors">Company Profile</Link>
-            <Link to="/terms" onClick={() => window.scrollTo(0, 0)} className="hover:text-rose-500 transition-colors">Terms</Link>
+            <Link to="/profile" onClick={handleNavigate} className="hover:text-orange-400 transition-colors">Company Profile</Link>
+            <Link to="/terms" onClick={handleNavigate} className="hover:text-rose-500 transition-colors">Terms</Link>
           </div>
         </div>
       </div>

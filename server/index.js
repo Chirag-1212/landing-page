@@ -1,5 +1,5 @@
 // ====================================
-// IMPORTS & DEPENDENCIES
+// 1. IMPORTS & DEPENDENCIES
 // ====================================
 const express = require('express');
 const mysql = require('mysql2');
@@ -10,13 +10,13 @@ require('dotenv').config();
 const app = express();
 
 // ====================================
-// MIDDLEWARE CONFIGURATION
+// 2. MIDDLEWARE CONFIGURATION
 // ====================================
 app.use(cors());
 app.use(express.json());
 
 // ====================================
-// DATABASE CONNECTION POOL
+// 3. DATABASE CONNECTION POOL
 // ====================================
 const db = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
@@ -28,7 +28,7 @@ const db = mysql.createPool({
 });
 
 // ====================================
-// ROUTES
+// 4. AUTHENTICATION ROUTES (User/Auth)
 // ====================================
 
 // ROOT & HEALTH CHECK
@@ -91,21 +91,25 @@ app.post('/api/login', (req, res) => {
     });
 });
 
-// ADMIN STATS
-app.get('/api/admin/stats', (req, res) => {
-    const sql = `
-        SELECT 
-            (SELECT COUNT(*) FROM users) as total_users,
-            (SELECT COUNT(*) FROM careers WHERE status = '1') as active_jobs,
-            (SELECT COUNT(*) FROM career_apply) as total_applications
-    `;
-    db.query(sql, (err, result) => {
-        if (err) return res.status(500).json({ error: "Failed to fetch stats" });
-        res.json(result[0]);
+// ====================================
+// 5. CAREER & JOB MANAGEMENT ROUTES
+// ====================================
+
+app.get('/api/jobs', (req, res) => {
+    // I removed 'title_nepali' and 'duty_station' temporarily to see if that's the crash cause.
+    // If your table has them, you can add them back one by one.
+    const sql = "SELECT id, job_title, slug, type AS job_type, due_date, vacancy_count, description FROM careers WHERE status = '1' ORDER BY created_on DESC";
+    
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error("❌ SQL ERROR in /api/jobs:", err.message); // This will show in your terminal
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
     });
 });
 
-// JOB POSTING (Admin)
+// POST A NEW JOB (Admin Only)
 app.post('/api/admin/jobs', (req, res) => {
     const { job_title, deadline, job_type, vacancy_count, description, status, user_id } = req.body;
     const slug = job_title.toLowerCase().replace(/ /g, '-') + '-' + Date.now();
@@ -122,17 +126,82 @@ app.post('/api/admin/jobs', (req, res) => {
     });
 });
 
-// GET JOBS (Public)
+// ====================================
+// 6. CANDIDATE PORTAL ROUTES
+// ====================================
+
+// NEW: SUBMIT A JOB APPLICATION (The "Add Info" Part)
+app.post('/api/careers/apply', (req, res) => {
+    const { career_id, user_id, applicant_name, applicant_email } = req.body;
+
+    if (!career_id || !user_id) {
+        return res.status(400).json({ error: "Missing required application data" });
+    }
+
+    const sql = `
+        INSERT INTO career_apply 
+        (career_id, user_id, applicant_name, applicant_email, status, apply_date) 
+        VALUES (?, ?, ?, ?, 'new', NOW())
+    `;
+
+    db.query(sql, [career_id, user_id, applicant_name, applicant_email], (err, result) => {
+        if (err) {
+            console.error("❌ Database Error during application:", err);
+            if (err.code === 'ER_DUP_ENTRY') return res.status(409).json({ error: "You have already applied for this job" });
+            return res.status(500).json({ error: "Failed to submit application" });
+        }
+        res.status(201).json({ message: "Application submitted successfully!", id: result.insertId });
+    });
+});
+
+/// ====================================
+// 5. CAREER & JOB MANAGEMENT ROUTES
+// ====================================
+
 app.get('/api/jobs', (req, res) => {
-    const sql = "SELECT id, job_title, slug, job_type, due_date, vacancy_count, description FROM careers WHERE status = '1' ORDER BY created_on DESC";
+    // Only selecting columns that exist in your original table
+    const sql = `
+        SELECT 
+            id, 
+            job_title, 
+            slug, 
+            type AS job_type, 
+            due_date, 
+            vacancy_count, 
+            description 
+        FROM careers 
+        WHERE status = '1' 
+        ORDER BY created_on DESC
+    `;
+    
     db.query(sql, (err, results) => {
-        if (err) return res.status(500).json({ error: "Failed to fetch jobs" });
-        res.json(results);
+        if (err) {
+            console.error("❌ SQL ERROR:", err.message); 
+            return res.status(500).json({ error: "Database query failed" });
+        }
+        res.json(results); // Sends the array to the frontend
     });
 });
 
 // ====================================
-// SERVER INITIALIZATION
+// 7. ADMIN DASHBOARD & STATS
+// ====================================
+
+app.get('/api/admin/stats', (req, res) => {
+    const sql = `
+        SELECT 
+            (SELECT COUNT(*) FROM users) as total_users,
+            (SELECT COUNT(*) FROM careers WHERE status = '1') as active_jobs,
+            (SELECT COUNT(*) FROM career_apply) as total_applications
+    `;
+    db.query(sql, (err, result) => {
+        if (err) return res.status(500).json({ error: "Failed to fetch stats" });
+        res.json(result[0]);
+    });
+});
+
+// ====================================
+// 8. SERVER INITIALIZATION & SHUTDOWN
 // ====================================
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
